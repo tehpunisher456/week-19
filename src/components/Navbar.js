@@ -47,12 +47,35 @@ export default class Navbar extends Component {
 
   }
 
+  handleSortChange = (event)=>{
+    event.preventDefault()
+    let sortBy = event.target.value;
+    this.setState({sort: sortBy})
+
+    if(sortBy === "name"){
+      this.state.people.sort((a, b) => {
+
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      })
+    }else if(sortBy === "title"){
+      this.state.people.sort((a, b) => {
+
+        return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+      })
+      }else {
+        this.state.people.sort((a, b) => {
+  
+          return a.email < b.email ? -1 : a.email > b.email ? 1 : 0;
+        })
+      }
+    }
+    
+  
   handleSearchChange(event){
  event.preventDefault()
  this.setState({filter:event.target.value})
     if(event.target.value === ""){
       this.state.display = "normal"
-      console.log(this.state.display)
     }else{
       this.state.display = "filtered"
     }
@@ -71,9 +94,9 @@ export default class Navbar extends Component {
               Sort by
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button className="dropdown-item" href="#">Name</button>
-              <button className="dropdown-item" href="#">Title</button>
-              <button className="dropdown-item" href="#">eMail</button>
+              <button className="dropdown-item" value = "name" onClick = {e=>this.handleSortChange(e)}>Name</button>
+              <button className="dropdown-item" value = "title"onClick = {e=>this.handleSortChange(e)}>Title</button>
+              <button className="dropdown-item" value = "email" onClick = {e=>this.handleSortChange(e)}>eMail</button>
             </div>
           </div>          
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
