@@ -43,34 +43,35 @@ export default class Navbar extends Component {
         </div>
       );
     });
-  
-
   }
 
   handleSortChange = (event)=>{
+    // event.preventDefault()
+    // let sortBy = event.target.value;
+    // this.setState({sort: sortBy})
+    // if(sortBy === "name"){
+    //   this.state.people.sort((a, b) => {
+    //     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    //   })
+    // }else if(sortBy === "title"){
+    //   this.state.people.sort((a, b) => {
+    //     return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+    //   })
+    //   }else {
+    //     this.state.people.sort((a, b) => {
+    //       return a.email < b.email ? -1 : a.email > b.email ? 1 : 0;
+    //     })
+    //   }
     event.preventDefault()
     let sortBy = event.target.value;
     this.setState({sort: sortBy})
+    var sortKind = event.target.value.toString()    
+    this.state.people.sort((a, b) => {
+      return a[sortKind] < b[sortKind] ? -1 : a[sortKind] > b[sortKind] ? 1 : 0;
+    })
 
-    if(sortBy === "name"){
-      this.state.people.sort((a, b) => {
-
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-      })
-    }else if(sortBy === "title"){
-      this.state.people.sort((a, b) => {
-
-        return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-      })
-      }else {
-        this.state.people.sort((a, b) => {
-  
-          return a.email < b.email ? -1 : a.email > b.email ? 1 : 0;
-        })
-      }
     }
     
-  
   handleSearchChange(event){
  event.preventDefault()
  this.setState({filter:event.target.value})
@@ -84,11 +85,9 @@ export default class Navbar extends Component {
 
   render(){
     return(
-
       <div className = "container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="#">Employee Directory</a>
-
           <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Sort by
@@ -108,10 +107,8 @@ export default class Navbar extends Component {
     </form>
           
         </nav>
-        
               <Table/>
         {this.renderPeople()}</div>
     )
   }
-
 }
